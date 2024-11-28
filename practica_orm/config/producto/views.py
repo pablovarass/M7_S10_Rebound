@@ -7,6 +7,7 @@ from .forms import ProductoForm
 from django.db.models import Q
 from django.http import HttpResponse
 
+
 # Create your views here.
 def listar(request):
     productos = Producto.objects.using('default').all()
@@ -70,3 +71,8 @@ def mostrar_cadena(request, cadena):
     if not cadena.strip():
         return HttpResponse("El username está vacío o es inválido", status=400)
     return render(request, 'mostrar_cadena.html', {'cadena': cadena})
+   
+def detalle_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    return render(request, 'detalle_producto.html', {'producto': producto})
+
